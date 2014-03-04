@@ -1,4 +1,4 @@
-# basic-nw-starter
+# basic-nw-angular-starter
 
 A simple starting point for node-webkit apps with AngularJS.  Mostly pulled from
 https://github.com/ngbp/ngbp . As I get a better hang of Angular and node-webkit,
