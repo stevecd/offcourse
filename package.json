@@ -9,8 +9,7 @@
   },
   "author": "stevecd123",
   "licenses": {
-    "type": "GPLv3",
-    "url": "http://www.gnu.org/licenses/gpl-3.0.html"
+    "type": "MIT"
   },
   "devDependencies": {
     "grunt-cli": "~0.1.11",
