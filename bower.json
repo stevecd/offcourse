@@ -2,7 +2,7 @@
   "name": "basicNwStarter",
   "version": "0.0.0",
   "authors": [
-    "steve <stevecd123@gmail.com>"
+    "somebody <somebody@example.com>"
   ],
   "description": "basic node-webkit/angularjs starter App",
   "main": "src/index.html",
