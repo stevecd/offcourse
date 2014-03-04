@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html ng-controller="basicNwStarterCtrl">
+  <head>
+    <title ng-bind="pageTitle"></title>
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+  </head>
+  <body>
+    <div class="main" ui-view="main"></div>
+    <script src="http://localhost:35729/livereload.js"></script>
+  </body>
+</html>

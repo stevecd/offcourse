@@ -1,0 +1,29 @@
+{
+  "name": "basicNwStarter",
+  "version": "0.0.0",
+  "authors": [
+    "steve <stevecd123@gmail.com>"
+  ],
+  "description": "basic node-webkit/angularjs starter App",
+  "main": "src/index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "*"
+  },
+  "devDependencies": {
+    "angular": "~1.2.5",
+    "bootstrap": "~3.0.3",
+    "angular-ui-router": "~0.2.7",
+    "angular-ui-utils": "~0.0.4",
+    "underscore": "~1.5.2",
+    "moment": "~2.4.0"
+  }
+}
