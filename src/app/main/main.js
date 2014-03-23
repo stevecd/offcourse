@@ -1,4 +1,4 @@
-angular.module( 'basicNwStarter.main', [
+angular.module( 'offCourse.main', [
   'ui.router'
 ])
 
@@ -11,11 +11,23 @@ angular.module( 'basicNwStarter.main', [
         templateUrl: 'main/main.tpl.html'
       }
     },
-    data:{ pageTitle: 'Main' }
+    data:{
+      pageTitle: 'Main',
+      loginRequired: true
+    },
+    onEnter: function() {
+      win.setResizable(true);
+      var mainWidth = localStorage.mainWidth || 800;
+      var mainHeight = localStorage.mainHeight || 600;
+      win.resizeTo(mainWidth, mainHeight);
+    },
+    onExit: function() {
+
+    }
   });
 })
 
-.controller( 'MainController', function MainController( $scope, $http ) {
+.controller( 'MainController', function MainController( $scope ) {
 })
 
 ;

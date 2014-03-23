@@ -26,6 +26,7 @@
 @import '../../vendor/bootstrap/less/list-group.less';
 @import '../../vendor/bootstrap/less/pager.less';
 @import '../../vendor/bootstrap/less/panels.less';
+@import '../../vendor/bootstrap/less/input-groups.less';
 
 
 /**
@@ -40,26 +41,63 @@ html,body {
   height: 100%;
 }
 
-body {
+.main {
+  position: fixed;
+  left: 150px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 10px;
+  .panel {
+    padding: 5px;
+  }
 }
 
-.thinker {
-  font-weight: bold;
-  color: red;
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  width: 90px;
-  margin-left: -45px;
-  margin-right: auto;
+.row {
+  margin: 0;
+  padding: 0;
 }
 
+.side-bar {
+  position: fixed;
+  left: 0;
+  width: 150px;
+  top: 0;
+  bottom: 0;
+  box-shadow: 2px 0px 10px 0px rgba(25,25,25,0.75);
+  background-color: @brand-primary;
+  h1 {
+    border-bottom: 1px dotted lighten(@brand-primary, 10%);
+    margin-bottom: 0px;
+    padding-bottom: 8px;
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  li {
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+      background-color: lighten(@brand-primary, 10%);
+    }
+  }
+  .title {
+    padding-bottom: 3px;
+  }
+  .description {
+    font-size: 12px;
+  }
+}
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using. 
  *
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */
+
+@import '../app/login/login.less';
 
 /*@import '../app/stocks/add/add.less';*/
 /*@import '../app/stocks/stocks.less';*/

@@ -27,7 +27,10 @@ module.exports = {
 
     html: [ 'src/index.html' ],
     //less: ['src/**/*.less', 'src/less/main.less']
-    less: ['src/**/*.less']
+    less: [
+      'src/**/*.less',
+      'vendor/angular-wizard/dist/angular-wizard.less'
+    ]
   },
 
   /**
@@ -57,7 +60,12 @@ module.exports = {
       'vendor/moment/min/moment.min.js',
       'vendor/bootstrap/dist/js/bootstrap.js',
       'vendor/angular/angular.js',
-      'vendor/angular-ui-router/release/angular-ui-router.js'
+      'vendor/angular-ui-router/release/angular-ui-router.js',
+      'vendor/textAngular/textAngular-sanitize.js',
+      'vendor/textAngular/textAnglar.js',
+      'vendor/angular-wizard/dist/angular-wizard.js',
+      'vendor/angular-bootstrap/ui-bootstrap.js',
+      'vendor/angular-bootstrap/ui-bootstrap-tpls.js'
     ],
     css: [
     ],

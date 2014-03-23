@@ -1,0 +1,38 @@
+<h1 class="text-center">Shuffle Lessons</h1>
+<wizard on-finish="finishedWizard()"> 
+    <wz-step wz-title="Warning">
+        <h3>Be warned!</h3>
+        <p>
+          While Oncourse does keep a revision history of your lesson plans, it does not appear to keep track of linked standards.
+          This task moves those around too, so there is potential for permanent data loss should something go wrong.
+        </p>
+        <input type="submit" wz-next value="I Understand" />
+    </wz-step>
+    <wz-step wz-title="Set Boundaries">
+        <h3>Set Year Boundaries</h3>
+        <p>Pick the start date and end date for the year in which you're shuffling lessons.</p>
+        <p>It will be assumed that dates immediately before and after these dates are not important.</p>
+        <p>The first blank lesson after the end-of-year date will mark the end of the year.</p>
+        <p>
+          To insert (n) blank lessons, offCourse will start at the final lesson, pushing everything over (n) weekday(s)
+          until it gets to the insertion point.
+        </p>
+        <input type="submit" wz-previous value="Previous" />
+        <input type="submit" wz-next value="Next" />
+    </wz-step>
+    <wz-step wz-title="Set Skips">
+        <h3>Set Skipped Days</h3>
+        <p>Click days on each calendar to designate weekdays that should be skipped when shuffling.</p>
+        <p>These will be days that will not be moved or overwritten.</p>
+        <p>Typically one would want to mark all weekdays where there is no school.</p>
+        <p>Ex: If January 2nd is marked and offCourse is moving the lesson on January 1st over one day,
+          it will move that lesson to January 3rd, leaving January 2nd as it was.</p>
+        <input type="submit" wz-previous value="Previous" />
+        <input type="submit" wz-next value="Next" />
+    </wz-step>
+    <wz-step wz-title="Shuffle">
+        <h3>Point Of No Return</h3>
+        <input type="submit" wz-previous value="Previous" />
+        <input type="submit" wz-next value="Do It." />
+    </wz-step>
+</wizard>

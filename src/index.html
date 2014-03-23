@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-controller="basicNwStarterCtrl">
+<html ng-controller="offCourseCtrl">
   <head>
     <title ng-bind="pageTitle"></title>
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
@@ -9,7 +9,22 @@
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
   </head>
   <body>
+    <div class="side-bar">
+      <h1 class="text-center">
+        Tasks
+      </h1>
+      <ul class="list-unstyled">
+        <li ng-click="go('shuffle')">
+          <span class="title">Shuffle</span>
+        </li>
+        <li ng-click="go('backup')">
+          <span class="title">Backup</span>
+        </li>
+        <li ng-click="go('main')">
+          <span class="title">License</span>
+        </li>
+    </div>
     <div class="main" ui-view="main"></div>
-    <script src="http://localhost:35729/livereload.js"></script>
+    <!--<script src="http://localhost:35729/livereload.js"></script>-->
   </body>
 </html>

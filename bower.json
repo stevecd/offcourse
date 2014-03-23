@@ -24,6 +24,9 @@
     "angular-ui-router": "~0.2.7",
     "angular-ui-utils": "~0.0.4",
     "underscore": "~1.5.2",
-    "moment": "~2.4.0"
+    "moment": "~2.4.0",
+    "textAngular": "~1.2.0",
+    "angular-bootstrap": "~0.10.0",
+    "angular-wizard": "git@github.com:stevecd/angular-wizard.git#master"
   }
 }
