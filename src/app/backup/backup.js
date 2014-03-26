@@ -22,7 +22,24 @@ angular.module('offCourse.backup', [
   });
 })
 
-.controller('BackupController', function BackupController($scope) {
+.controller('BackupController', function BackupController($rootScope, $scope, ocInterface, fileDialog) {
+  $scope.backup = {
+    fileName:"./backup.txt"
+  };
+  $scope.chooseFile = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
 
+    fileDialog.saveAs(function(filename) {
+      $scope.$apply(function() {
+        $scope.backup.fileName = filename;
+      });
+    }, $scope.backup.fileName, ".txt");
+  };
+  $scope.beginBackup = function($event) {
+    console.log("Fart!");
+    //ocInterface.testFunc();
+    ocInterface.backupPlannerDateRange($scope.backup.startDate, $scope.backup.endDate, $scope.backup.fileName);
+  };
 })
 ;

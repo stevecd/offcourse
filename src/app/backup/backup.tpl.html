@@ -1,12 +1,28 @@
 <h1 class="text-center">Backup Lessons</h1>
-<p>This task will grab all of the lessons between two given dates and save them in JSON format.</p>
-<p>Specifically it will grab the notes, homework, and linked standards of each lesson.</p>
 <p>
-  This is intended to prevent data loss from other tasks as you can keep a local backup of
-  the range of dates you intend to change.
+  A task that grabs all lesson notes, homework, and linked standards between two dates and saves them
+  in json format.
 </p>
-<p>
-  A restore task may be added in the future if there's any demand.
-  For now, JSON is a plain text format and you should be able to open backup files with
-  any text editor or web browser and make sense of what's there.
-</p>
+<form name="backupForm" ng-submit="beginBackup($event)">
+  <p>
+    <label> Start Date </label>
+    <input type="text" class="form-control short" datepicker-popup ng-model="backup.startDate" ng-required="true" placeholder="startDate" />
+  </p>
+  <p>
+    <label> End Date </label>
+    <input type="text" class="form-control short" datepicker-popup ng-model="backup.endDate" ng-required="true" placeholder="endDate" />
+  </p>
+  <p>
+    <label> Output File </label>
+    <div class="input-group long">
+      <input type="text" disabled="true" class="form-control" ng-model="backup.fileName" ng-required="true" placeholder="outputFile" />
+      <span class="input-group-btn">
+        <button class="btn btn-primary" ng-click="chooseFile($event)" >Choose</button>
+      </span>
+    </div>
+  </p>
+
+  <p>
+    <button type="submit" class="btn btn-success" ng-disabled="backupForm.$invalid">Begin Task</button>
+  </p>
+</form>

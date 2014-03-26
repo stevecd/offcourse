@@ -4,6 +4,7 @@ var cheerio = require("cheerio");
 var unirest = require("unirest");
 var oncourse = require("node-oncourse");
 var fs = require("q-io/fs");
+var Q = require("q");
 win.hide();
 
 angular.module('offCourse', [
@@ -16,6 +17,7 @@ angular.module('offCourse', [
   'mgo-angular-wizard',
   'offCourse.shuffle',
   'offCourse.backup',
+  'offCourse.oncourse',
   'DWand.nw-fileDialog'
 ])
 
@@ -33,7 +35,14 @@ angular.module('offCourse', [
   });
 })
 
-.controller( 'offCourseCtrl', function offCourseCtrl ( $scope, $location, $modal ) {
+.controller('ModalInstanceCtrl', function($scope, $modalInstance) {
+  window.gg = $modalInstance;
+  $scope.$on("$destroy", function() {
+    console.log("Destroyed!");
+  });
+})
+
+.controller( 'offCourseCtrl', function offCourseCtrl ( $scope, $rootScope, $location, $modal, $timeout ) {
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if ( angular.isDefined( toState.data.pageTitle ) ) {
       $scope.pageTitle = toState.data.pageTitle + ' | offCourse' ;
@@ -43,16 +52,45 @@ angular.module('offCourse', [
     $location.path("/" + place);
   };
 
+  var modalInstance = {};
+  $scope.queue = {};
+
+  $scope.$on("queue:begin", function(event,numJobs) {
+    $scope.queue.jobs = numJobs;
+  });
+  $scope.$on("task:started", function($event, message) {
+    console.log("huh?");
+    $scope.queue.message = message;
+  });
+  $scope.$on("task:finished", function($event, message) {
+    console.log("what?");
+    $scope.queue.message = message;
+    $scope.queue.jobs -= 1;
+  });
+  $scope.$on("queue:finished", function() {
+    console.log("yeah");
+    $scope.queue.message = "Task Complete!";
+    $timeout(function() {
+      modalInstance.dismiss('complete');
+    }, 2000);
+  });
+  $scope.abort = function() {
+    console.log("Abort!");
+    //$modalInstance.close(chartStudyFactory.create($scope.selected.studyType, $scope.selected.size));
+    //$modalInstance.dismiss('abort');
+  };
+
   $scope.$on("queue:begin", function(event, numJobs) {
-    var modalInstance = $modal.open({
+    $scope.queue.jobs = numJobs;
+    $scope.queue.message = "";
+    modalInstance = $modal.open({
+      backdrop: 'static',
+      scope: $scope,
       templateUrl: 'oncourse/queue_modal.tpl.html',
-      controller: function($scope, $modalInstance) {
-        $scope.abort = function() {
-          //$modalInstance.close(chartStudyFactory.create($scope.selected.studyType, $scope.selected.size));
-          $modalInstance.dismiss('abort');
-        };
-      }
+      controller: 'ModalInstanceCtrl',
+      keyboard: false
     });
+    window.cc = modalInstance;
 
     modalInstance.result.then(function() {
       console.log("got modal result");

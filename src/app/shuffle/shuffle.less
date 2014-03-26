@@ -1,0 +1,33 @@
+.skip-select {
+  .calendar {
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 6px;
+    width: 200px;
+    font-size: 10px;
+    height: 135px;
+    margin: 2px;
+    table {
+      width: 100%;
+      td, th{
+        text-align: center;
+        vertical-align: middle;
+      }
+      td.week-number {
+        font-weight: bold;
+      }
+      td.weekend, td.outsideday {
+        background-color: lightgrey;
+      }
+      td.weekday {
+        cursor: pointer;
+      }
+      td.weekday.selected {
+        background-color: lightpink;
+      }
+      caption {
+        font-size: 12px;
+      }
+    }
+  }
+}

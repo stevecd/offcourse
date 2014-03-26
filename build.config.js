@@ -64,14 +64,17 @@ module.exports = {
       'vendor/textAngular/textAngular-sanitize.js',
       'vendor/textAngular/textAnglar.js',
       'vendor/angular-wizard/dist/angular-wizard.js',
-      'vendor/angular-bootstrap/ui-bootstrap.js',
-      'vendor/angular-bootstrap/ui-bootstrap-tpls.js'
+      '../bootstrap/dist/ui-bootstrap-0.11.0-SNAPSHOT.js',
+      '../bootstrap/dist/ui-bootstrap-tpls-0.11.0-SNAPSHOT.js'
+      //'vendor/angular-bootstrap/ui-bootstrap.js',
+      //'vendor/angular-bootstrap/ui-bootstrap-tpls.js'
     ],
     css: [
     ],
     assets: [
     ],
     fonts: [
+      'vendor/bootstrap/dist/fonts/*'
     ]
   },
 };
