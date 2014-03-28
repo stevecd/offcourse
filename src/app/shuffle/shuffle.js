@@ -22,14 +22,39 @@ angular.module('offCourse.shuffle', [
   });
 })
 
-.controller('ShuffleController', function ShuffleController($scope) {
+.controller('ShuffleController', function ShuffleController($scope,ocInterface,skippedDayStore) {
   $scope.shuffleObj = {
-    startBoundary: null,
-    endBoundary: null
+    endDate: null
+  };
+  
+  $scope.finishedWizard = function() {
+    oci.insertLesson(
+      $scope.shuffleObj.targetDate,
+      $scope.shuffleObj.period,
+      $scope.shuffleObj.endDate,
+      skippedDayStore.skips
+    ).then(null,function(err) {
+      toastr.error(err.stack, "Task failed!");
+      console.log(err.stack);
+    });
   };
 })
 
-.directive('skipSelect', function() {
+.factory('skippedDayStore', function() {
+  var store = {};
+  store.skips = [];
+  store.saveSkips = function(filename) {
+    return fs.write(filename, store.skips.join("\n"), "w");
+  };
+  store.loadSkips = function(filename) {
+    return fs.read(filename).then(function(content) {
+      store.skips = content.split(/\r\n|\n|\r/);
+    });
+  };
+  return store;
+})
+
+.directive('skipSelect', function(skippedDayStore, fileDialog) {
   return {
     restrict: "AE",
     templateUrl: "shuffle/skip_select.tpl.html",
@@ -40,9 +65,7 @@ angular.module('offCourse.shuffle', [
     link: function(scope, element, attrs) {
       var self = this;
       scope.months = [];
-      window.farf = scope;
-      window.pp = this;
-
+      
       angular.forEach(['startDate', 'endDate'], function(key) {
         scope.$watch(key, function(value) {
           self.refreshView();
@@ -91,11 +114,60 @@ angular.module('offCourse.shuffle', [
           }
           scope.months.push(monthObj);
         }
+
+        // add .skipped attribute to days already skipped in skippedDayStore.skips
+        scope.months.forEach(function(m) {
+          m.weeks.forEach(function(w) {
+            w.days.forEach(function(d) {
+              var daystring = moment(d.day).format("YYYY-MM-DD");
+              var storedIndex = skippedDayStore.skips.indexOf(daystring);
+              if(~storedIndex) {
+                d.skipped = true;
+              }
+            });
+          });
+        });
       };
+
+      scope.saveSkips = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        fileDialog.saveAs(function(filename) {
+          skippedDayStore.saveSkips(filename).then(function() {
+            toastr.success("Skips saved to " + filename);
+          }, function(err) {
+            toastr.error("Error saving skips");
+          });
+        }, "skipfile.json", ".json");
+      };
+
+      scope.loadSkips = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        fileDialog.openFile(function(filename) {
+          skippedDayStore.loadSkips(filename).then(function() {
+            toastr.success("Loaded skips from " + filename);
+            scope.$apply(function() {
+              self.refreshView();
+            });
+          }, function(err) {
+            toastr.error("Error loading skips");
+          });
+        }, false, [".json", ".txt"]);
+      };
+
       scope.clickedDay = function(day) {
-        console.log("OI");
         if(day.type === 'weekday') {
           day.skipped = !day.skipped;
+          var daystring = moment(day.day).format("YYYY-MM-DD");
+          var storedIndex = skippedDayStore.skips.indexOf(daystring);
+          if(~storedIndex) {
+            skippedDayStore.skips.splice(storedIndex, 1);
+          } else {
+            skippedDayStore.skips.push(daystring);
+          }
         }
       };
     }

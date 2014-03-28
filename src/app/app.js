@@ -1,7 +1,5 @@
 var gui = require("nw.gui");
 var win = gui.Window.get();
-var cheerio = require("cheerio");
-var unirest = require("unirest");
 var oncourse = require("node-oncourse");
 var fs = require("q-io/fs");
 var Q = require("q");
@@ -36,10 +34,6 @@ angular.module('offCourse', [
 })
 
 .controller('ModalInstanceCtrl', function($scope, $modalInstance) {
-  window.gg = $modalInstance;
-  $scope.$on("$destroy", function() {
-    console.log("Destroyed!");
-  });
 })
 
 .controller( 'offCourseCtrl', function offCourseCtrl ( $scope, $rootScope, $location, $modal, $timeout ) {
@@ -59,16 +53,20 @@ angular.module('offCourse', [
     $scope.queue.jobs = numJobs;
   });
   $scope.$on("task:started", function($event, message) {
-    console.log("huh?");
     $scope.queue.message = message;
+  });
+  $scope.$on("task:message", function($event, message) {
+    $scope.$apply(function() {
+      $scope.queue.message = message;
+    });
   });
   $scope.$on("task:finished", function($event, message) {
-    console.log("what?");
-    $scope.queue.message = message;
-    $scope.queue.jobs -= 1;
+    $scope.$apply(function() {
+      $scope.queue.message = message;
+      $scope.queue.jobs -= 1;
+    });
   });
   $scope.$on("queue:finished", function() {
-    console.log("yeah");
     $scope.queue.message = "Task Complete!";
     $timeout(function() {
       modalInstance.dismiss('complete');
@@ -90,7 +88,6 @@ angular.module('offCourse', [
       controller: 'ModalInstanceCtrl',
       keyboard: false
     });
-    window.cc = modalInstance;
 
     modalInstance.result.then(function() {
       console.log("got modal result");

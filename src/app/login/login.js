@@ -23,10 +23,22 @@ angular.module( 'offCourse.login', [
   $scope.formInfo = {
     buttonText: 'Log in'
   };
+  window.oci = ocInterface;
   $scope.login = function() {
     //TODO fill in login()
-    ocInterface.online = true;
-    $state.go('main');
+    //ocInterface.online = true;
+    //$state.go('main');
+    if(!ocInterface.authenticating) {
+      $scope.formInfo.buttonText = 'Authenticating...';
+      ocInterface.login($scope.formInfo.username, $scope.formInfo.password).then(function() {
+        if(ocInterface.online) {
+          $state.go('main');
+        } else {
+          $scope.formInfo.buttonText = 'Log in';
+          toastr.error("Authentication Failure.");
+        }
+      });
+    }
   };
 })
 

@@ -9,36 +9,51 @@
         <button class="btn btn-primary" wz-next >I understand</button>
     </wz-step>
     <wz-step wz-title="Set Boundaries">
-        <h3>Set Year Boundaries</h3>
+        <h3>Set Date Range</h3>
         <form name="yearBoundaries">
           <p>
-            <label> Start Date </label>
-            <input type="text" class="form-control short" datepicker-popup ng-model="shuffleObj.startBoundary" ng-required="true" placeholder="startDate" />
+            <label> Target Date </label>
+            <input type="text" class="form-control short" datepicker-popup ng-model="shuffleObj.targetDate" ng-required="true" placeholder="targetDate" />
           </p>
           <p>
             <label> End Date </label>
-            <input type="text" class="form-control short" datepicker-popup ng-model="shuffleObj.endBoundary" ng-required="true" placeholder="endDate" />
+            <input type="text" class="form-control short" datepicker-popup ng-model="shuffleObj.endDate" ng-required="true" placeholder="endDate" />
+          </p>
+          <p>
+            <label> Period (column #)</label>
+            <input type="number" class="form-control short" ng-model="shuffleObj.period" ng-required="true" />
           </p>
         </form>
-        <p>It will be assumed that dates immediately before and after these dates are not important.</p>
-        <p>The first blank lesson after the end-of-year date will mark the end of the year.</p>
+        <p>Starting at the End Date, each day will be moved one day later up to (including) the target date.</p>
         <button class="btn" wz-previous ><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
         <button class="btn btn-primary" wz-next ng-disabled="yearBoundaries.$invalid">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
     </wz-step>
     <wz-step wz-title="Set Skips">
         <h3>Set Skipped Days</h3>
-        <p>Click days on each calendar to designate weekdays that should be skipped when shuffling.</p>
-        <p>These will be days that will not be moved or overwritten.</p>
+        <p>
+          Click days on each calendar to designate weekdays that should be skipped when shuffling.
+          These will be days that will not be moved or overwritten.
+        </p>
         <p>Typically one would want to mark all weekdays where there is no school.</p>
-        <p>Ex: If January 2nd is marked and offCourse is moving the lesson on January 1st over one day,
-          it will move that lesson to January 3rd, leaving January 2nd as it was.</p>
-        <div class="months skip-select" skip-select start-date="shuffleObj.startBoundary" end-date="shuffleObj.endBoundary">
+        <p>Ex: If Jan. 2nd is marked, the lesson on Jan. 1st will be moved to Jan. 3rd, leaving Jan. 2nd as it was. </p>
+        <p>You can optionally save/load your marked skip days for future runs of this task.</p>
+        <div class="months skip-select" skip-select start-date="shuffleObj.targetDate" end-date="shuffleObj.endDate">
         </div>
         <button class="btn" wz-previous ><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
         <button class="btn btn-primary" wz-next >Next <i class="glyphicon glyphicon-arrow-right"></i></button>
     </wz-step>
     <wz-step wz-title="Shuffle">
         <h3>Point Of No Return</h3>
+        <p>
+          Clicking the "Do it." button will launch this task.  Be absolutely sure you've backed up any data you wish to
+          not lose.  If you're uncertain, it is suggested you test this task on a random test-lesson that you created on oncourse.
+          The task does not delete the targetDate, so once it's finished, you'll see that the target date has just been copied to
+          the date after it, but every lesson after that will have been moved a day later too.
+        </p>
+        <p>
+          Should you wish to cancel the sequence in action, just close this program.  The task will be interrupted wherever it's at
+          and no further changes will be made to your lesson plan.
+        </p>
         <button class="btn" wz-previous ><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
         <button class="btn btn-success" wz-next ><i class="glyphicon glyphicon-exclamation-sign"></i> Do it. <i class="glyphicon glyphicon-exclamation-sign"></i></button>
     </wz-step>

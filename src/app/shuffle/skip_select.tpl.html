@@ -1,19 +1,23 @@
-<div class="calendar" ng-repeat="month in months">
-  <table >
-    <caption>{{month.name}} {{month.year}}</caption>
-    <tr>
-      <th>w#</th>
-      <th>S</th>
-      <th>M</th>
-      <th>T</th>
-      <th>W</th>
-      <th>T</th>
-      <th>F</th>
-      <th>S</th>
-    </tr>
-    <tr ng-repeat="week in month.weeks">
-      <td class="week-number">{{week.index}}</td>
-      <td ng-click="clickedDay(day)" class="{{day.type}}" ng-class="{selected: day.skipped}"  ng-repeat="day in week.days">{{day.day.date()}}</td>
-    </tr>
-  </table>
+<button class="btn btn-xs" ng-click="loadSkips($event)">Load Skips</button>
+<button class="btn btn-xs" ng-click="saveSkips($event)">Save Marked Skips</button>
+<div class="calendars">
+  <div class="calendar" ng-repeat="month in months">
+    <table >
+      <caption>{{month.name}} {{month.year}}</caption>
+      <tr>
+        <th>w#</th>
+        <th>S</th>
+        <th>M</th>
+        <th>T</th>
+        <th>W</th>
+        <th>T</th>
+        <th>F</th>
+        <th>S</th>
+      </tr>
+      <tr ng-repeat="week in month.weeks">
+        <td class="week-number">{{week.index}}</td>
+        <td ng-click="clickedDay(day)" class="{{day.type}}" ng-class="{selected: day.skipped}"  ng-repeat="day in week.days">{{day.day.date()}}</td>
+      </tr>
+    </table>
+  </div>
 </div>

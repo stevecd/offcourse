@@ -37,9 +37,10 @@ angular.module('offCourse.backup', [
     }, $scope.backup.fileName, ".txt");
   };
   $scope.beginBackup = function($event) {
-    console.log("Fart!");
-    //ocInterface.testFunc();
-    ocInterface.backupPlannerDateRange($scope.backup.startDate, $scope.backup.endDate, $scope.backup.fileName);
+    ocInterface.backupPlannerDateRange($scope.backup.startDate, $scope.backup.endDate, $scope.backup.fileName).then(null, function(err) {
+      toastr.error(err.stack, "Task failed!");
+      console.log(err.stack);
+    });
   };
 })
 ;

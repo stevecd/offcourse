@@ -64,12 +64,12 @@ module.exports = {
       'vendor/textAngular/textAngular-sanitize.js',
       'vendor/textAngular/textAnglar.js',
       'vendor/angular-wizard/dist/angular-wizard.js',
-      '../bootstrap/dist/ui-bootstrap-0.11.0-SNAPSHOT.js',
-      '../bootstrap/dist/ui-bootstrap-tpls-0.11.0-SNAPSHOT.js'
-      //'vendor/angular-bootstrap/ui-bootstrap.js',
-      //'vendor/angular-bootstrap/ui-bootstrap-tpls.js'
+      'vendor/toastr/toastr.js',
+      'vendor/ui-bootstrap-snapshot/ui-bootstrap-0.11.0-SNAPSHOT.js',
+      'vendor/ui-bootstrap-snapshot/ui-bootstrap-tpls-0.11.0-SNAPSHOT.js'
     ],
     css: [
+      'vendor/toastr/toastr.css'
     ],
     assets: [
     ],
