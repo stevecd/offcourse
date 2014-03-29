@@ -74,8 +74,6 @@ angular.module('offCourse', [
   });
   $scope.abort = function() {
     console.log("Abort!");
-    //$modalInstance.close(chartStudyFactory.create($scope.selected.studyType, $scope.selected.size));
-    //$modalInstance.dismiss('abort');
   };
 
   $scope.$on("queue:begin", function(event, numJobs) {

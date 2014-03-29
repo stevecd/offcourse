@@ -12,6 +12,8 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-recess');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-node-webkit-builder');
+  grunt.loadNpmTasks('grunt-string-replace');
 
   /**
    * Load in our build configuration file.
@@ -23,6 +25,44 @@ module.exports = function ( grunt ) {
    * instructions.
    */
   var taskConfig = {
+    /*
+     * Replaces a few strings in package.json and sticks that in the build directory
+     * for use when using the nodeWebkit task
+     */
+    'string-replace': {
+      nodewebkit: {
+        files: {
+          'build/package.json':'package.json'
+        },
+        options: {
+          replacements: [{
+            pattern: /build\/index\.html/,
+            replacement: "index.html"
+          },{
+            pattern: /false\n/,
+            replacement: "false,\n    \"toolbar\": false\n" 
+          }]
+        }
+      }
+    },
+    nodewebkit: {
+      options: {
+        build_dir: './webkitbuilds',
+        mac: false,
+        win: true,
+        linux32: false,
+        linux64: true,
+        version: "0.9.2"
+      },
+      src: [
+        './build/package.json',
+        './build/**/*',
+        './node_modules/**/*',
+        '!./node_modules/.bin/**/*',
+        '!./node_modules/grunt*/**/*',
+        '!./node_modules/nodewebkit/**/*'
+      ]
+    },
     /**
      * We read in our `package.json` file so we can access the package name and
      * version. It's already there, so we don't repeat ourselves here.
@@ -406,6 +446,8 @@ module.exports = function ( grunt ) {
    */
   grunt.renameTask( 'watch', 'delta' );
   grunt.registerTask( 'watch', [ 'build', 'delta' ] );
+
+  grunt.registerTask('build:nodewebkit', ['build', 'string-replace:nodewebkit', 'nodewebkit']);
 
   /**
    * The default task is to build and compile.
